@@ -4,6 +4,7 @@ import './art_util.dart';
 class ArtRoute extends StatelessWidget {
   final String art;
   ArtRoute({@required this.art});
+  static int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +61,29 @@ class ArtRoute extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-        ));
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+            selectedItemColor: Colors.lime[900],
+            currentIndex: _currentIndex,
+            items: [
+              BottomNavigationBarItem(
+                title: Text(ArtUtil.CARAVAGGIO),
+                icon: Icon(Icons.art_track),
+              ),
+              BottomNavigationBarItem(
+                title: Text(ArtUtil.MONET),
+                icon: Icon(Icons.art_track),
+              ),
+              BottomNavigationBarItem(
+                title: Text(ArtUtil.VANGOGH),
+                icon: Icon(Icons.art_track),
+              ),
+            ],
+            onTap: (value) {
+              String _artist = ArtUtil.menuItems[value];
+              _currentIndex = value;
+              changeRoute(context, _artist);
+            }));
   }
 
   void changeRoute(BuildContext context, String menuItem) {
